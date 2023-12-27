@@ -3,12 +3,11 @@
   <div>
     <header class="sticky-header">
       <div>
-        <div class="text-h6 d-flex flex-row flex-nowrap align-center justify-space-around mb-5">
-          <div class="mr-10">1 team</div>
-          <div>2 team</div>
+        <div class="text-h4 text-green-darken-4 d-flex flex-row flex-nowrap align-center justify-space-around ma-5">
+          <div class="mr-10">Snegovichky</div>
+          <div>Snowflakes</div>
         </div>
-
-        <div class="text-h6 d-flex flex-row flex-nowrap align-center justify-space-around mb-5">
+        <div class="text-h4 text-green-darken-4 d-flex flex-row flex-nowrap align-center justify-space-around ma-5">
           <div>{{ scores.team1 }}</div>
           <div >{{ scores.team2 }}</div>
         </div>
@@ -34,6 +33,7 @@ const scores = computed(() => store.getters.getScores);
 
 <style scoped>
 .sticky-header {
+  padding-right: 0;
   position: fixed;
   top: 0;
   left: 0;

@@ -1,6 +1,6 @@
 <template>
     <div class="text-center">
-        <v-btn color="indigo-darken-3" @click="dialog = true">
+        <v-btn color="indigo-darken-3" @click="dialog = true" size="large">
             Start
         </v-btn>
         <v-dialog v-model="dialog" max-width="1000">
@@ -21,8 +21,8 @@
                     class="text-h4 d-flex flex-row flex-nowrap align-center justify-center ma-5 text-green-darken-4">Results</v-card-title>
                 <v-card-text>
                     <v-tabs fixed-tabs class="mb-5" bg-color="transparent" color="green-darken-4" grow>
-                        <v-tab v-model="teamName" @click="selectTeam(1)">1 team</v-tab>
-                        <v-tab v-model="teamName" @click="selectTeam(2)">2 team</v-tab>
+                        <v-tab v-model="teamName" @click="selectTeam(1)">Snegovichky</v-tab>
+                        <v-tab v-model="teamName" @click="selectTeam(2)">Snowflakes</v-tab>
                     </v-tabs>
 
                     <v-tabs fixed-tabs bg-color="transparent" color="green-darken-4" grow>
@@ -31,13 +31,18 @@
                     </v-tabs>
                 </v-card-text>
                 <v-card-actions class="ma-3 justify-center ">
-                    <v-btn color="green-darken-4" size="x-large" @click="saveResult">Save</v-btn>
+                    <v-btn color="green-darken-4" size="x-large" @click="saveResult && restartOne">Save</v-btn>
                     <v-btn color="green-darken-4" size="x-large" @click="dialog = false">Cancel</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
 
-        <audio id="audio" src="@/assets/gameOver.mp3" v-if="timer.seconds === 0 && timer.minutes === 0"></audio>
+        <audio hidden="true" ref="audioEnd" id="audioEnd">
+            <source src="../assets/gameOver.mp3" type="audio/mpeg">
+        </audio>
+        <audio hidden="true" ref="audioTimer" id="audioTimer">
+            <source src="../assets/clock-ticking-60.mp3" type="audio/mpeg">
+        </audio>
     </div>
 </template>
 
@@ -49,39 +54,37 @@ import { useTimer } from 'vue-timer-hook';
 
 
 const dialog = ref(false)
+const audioEnd = ref(null)
+const audioTimer = ref(null)
 
-const timer = ref(useTimer(autoStart));
-
-const audioElement = document.getElementById('audio');
 
 const selectedTeam = ref(1)
 const resultType = ref('victory')
 
-const autoStart = false;
 const time = new Date();
-time.setSeconds(time.getSeconds() + 60);
+time.setSeconds(time.getSeconds() + 60); 
+const timer = useTimer(time, false);
 
 const startTimer = () => {
-    const audioElement = document.getElementById('audio');
-    const time = new Date();
-    time.setSeconds(time.getSeconds() + 60);
-    timer.value.restart(time);
-    audioElement.play();
-
+    audioTimer?.value?.play();
+    timer.start();
 };
 
 const pauseTimer = () => {
-    timer.value.pause();
+    audioTimer?.value?.pause();
+    timer.pause();
+
 };
 
 const resumeTimer = () => {
-    timer.value.resume();
+    audioTimer?.value?.play();
+    timer.resume();
 };
 
 const restartOne = () => {
     const time = new Date();
     time.setSeconds(time.getSeconds() + 60);
-    timer.value.restart(time);
+    timer.restart(time, false);
 };
 
 const selectTeam = (team) => {
@@ -92,10 +95,6 @@ const selectResult = (type) => {
     resultType.value = type;
     console.log("resultType.value", resultType.value)
 }
-const onAudioEnded = () => {
-    console.warn('Timer ended, play sound');
-    audioElement.play();
-};
 
 const teamName = ref('');
 const resultForm = ref(false);
@@ -117,7 +116,7 @@ const saveResult = async () => {
         team: selectedTeam.value,
         result: resultType.value,
     };
-    console.log('resultData:', resultData); 
+    console.log('resultData:', resultData);
 
     try {
         await store.dispatch('updateScores', resultData);
@@ -129,14 +128,16 @@ const saveResult = async () => {
     dialog.value = false;
 };
 
-
 onMounted(() => {
+    // Watch the timer value for changes
     watchEffect(async () => {
-        if (timer.isExpired.value) {
-            console.warn('IsExpired');
-            audioElement.play();
-            openResultForm();
-        }
-    });
+    if(timer.isExpired.value) {
+        const audioElementEnd = document.getElementById('audioEnd');
+        console.log(audioElementEnd);
+        audioEnd?.value?.play();
+        audioTimer?.value?.pause();
+    }
+  })
 });
+
 </script>

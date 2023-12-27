@@ -1,8 +1,8 @@
 <template>
-  <div class="container" style="margin-top: 150px;">
+  <div class="container" style="margin-top: 160px;">
     <div class="d-flex flex-row flex-nowrap align-center justify-space-between mb-5" style="width: 100%;">
-      <v-btn @click="redirectToSelection" target="_blank" color="green-darken-3">Go Back</v-btn>
-      <ModalWindow @save-result="handleSaveResult" />
+      <a @click="redirectToSelection" class="text-h6 row-pointer text-green-darken-4" style="border-bottom: 1px solid;">Go Back</a>
+      <ModalWindow />
     </div>
     <CompetitionCard />
   </div>
@@ -35,6 +35,10 @@ const redirectToSelection = () => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+.row-pointer:hover {
+  cursor: pointer;
+  background-color: transparent !important;
 }
 </style>
   
