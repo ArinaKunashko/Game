@@ -1,7 +1,7 @@
 <template>
     <div class="width: 100%; height: 100%">
         <v-row justify="center" align="center" class="qq text-h6">
-            <h1>These are not games - everything is serious here</h1>
+            <h1 class="ma-5">These are not games - everything is serious here</h1>
         </v-row>
         <v-item-group v-model="model"
             class="px-6 pt-2 pb-6 d-flex flex-row flex-wrap align-content-center justify-center align-items-center">
@@ -58,7 +58,7 @@ const isButtonClicked = (competitionNumber) => {
     margin-top: 24px;
 }
 
-@media (max-width: 620px) {
+@media (max-width: 1000px) {
     .qq {
         margin-top: 130px;
         margin-bottom: 5px;

@@ -1,9 +1,9 @@
 <template>
-  <div  class="ma-10">
-    <v-card
+  <div  class="ma-10 pa-5">
+    <v-card class="pa-5"
       v-if="selectedCompetition"
       max-width="800" max-height="1000">
-      <iframe max-width="800" max-height="400" min-height="300" :src="selectedCompetition.timestampHref"  title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      <iframe  :src="selectedCompetition.timestampHref"  title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
       <v-card-title class="text-h4 bg-green-lighten-5 py-4">{{ selectedCompetition.name }}</v-card-title>
       <v-card-subtitle class="pt-4">
         Competition Number {{ selectedCompetition.number }}
@@ -35,4 +35,17 @@ const selectedCompetition = computed(() =>
 );
 </script>
 
-<style></style>
+<style scoped>
+iframe {
+width: 800px;
+height: 400px;
+}
+
+@media screen and (max-width: 600px){
+  iframe {
+max-width: 350px;
+height: 200px;
+}
+}
+
+</style>
