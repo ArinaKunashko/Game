@@ -3,7 +3,7 @@
   <div>
     <header class="sticky-header">
       <div>
-        <div class="text-h4 text-green-darken-4 d-flex flex-row flex-nowrap align-center justify-space-around ma-5">
+        <div class="text-lg-h4 text-h6 text-green-darken-4 d-flex flex-row flex-nowrap align-center justify-space-around ma-5">
           <div class="mr-10">Snegovichky</div>
           <div>Snowflakes</div>
         </div>
@@ -93,7 +93,29 @@ nav a {
 nav a:first-of-type {
   border: 0;
 }
+@media (max-width: 612px) {
+  .sticky-header {
+  padding-right: 5;
+  padding-left: 5;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  /* Adjust the z-index as needed */
+  background-color: #fff;
+  /* Add a background color if necessary */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Add a box shadow if desired */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
 
+}
 @media (min-width: 1024px) {
   header {
     display: flex;

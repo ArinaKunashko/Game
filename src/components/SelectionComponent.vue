@@ -1,14 +1,15 @@
 <template>
     <div class="width: 100%; height: 100%">
-        <v-row justify="center" align="center" class="ma-10 text-h6">
+        <v-row justify="center" align="center" class="qq text-h6">
             <h1>These are not games - everything is serious here</h1>
         </v-row>
         <v-item-group v-model="model"
             class="px-6 pt-2 pb-6 d-flex flex-row flex-wrap align-content-center justify-center align-items-center">
             <v-item v-for="n in contestsEnLength" :key="n">
                 <template v-slot:default="{ toggle }">
-                    <v-btn size="x-large" :icon="false" border height="70" variant="text" width="70" @click="handleButtonClick(n, toggle)"
-                        class="ma-5 text-h4" :class="{ buttonColor: isButtonClicked(n) }">
+                    <v-btn size="x-large" :icon="false" border height="70" variant="text" width="70"
+                        @click="handleButtonClick(n, toggle)" class="ma-5 text-h4"
+                        :class="{ buttonColor: isButtonClicked(n) }">
                         {{ n }}
                     </v-btn>
                 </template>
@@ -51,6 +52,23 @@ const isButtonClicked = (competitionNumber) => {
 .buttonColor {
     background-color: green;
     color: white;
+}
+
+.qq {
+    margin-top: 24px;
+}
+
+@media (max-width: 620px) {
+    .qq {
+        margin-top: 130px;
+        margin-bottom: 5px;
+        padding-right: 5px;
+        padding-left: 5px;
+
+    }
+    h1 {
+        text-align: center;
+    }
 }
 </style>
   
